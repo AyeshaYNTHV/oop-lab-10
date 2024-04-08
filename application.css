@@ -1,0 +1,30 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/* application.css */
+.root {
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-min-width: 100px;
+}
+
+.table-view {
+    -fx-pref-height: 200px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f0f0f0;
+}
+
+.table-view .column-header,
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f0f0f0;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #cce0ff;
+}
