@@ -1,0 +1,31 @@
+// 2D queue: a vector of deques for each role
+vector<deque<Entity>> entityQueues(3); // 0: parents, 1: teachers, 2: students
+
+for (int i = 0; i < count; i++) {
+    string role, name;
+    cout << "Enter entity " << i + 1 << " type (student, teacher, parent): ";
+    cin >> role;
+    cout << "Enter entity " << i + 1 << " name: ";
+    cin >> name;
+
+    // Push the entity into the respective deque based on role
+    if (role == "parent") {
+        entityQueues[0].push_back({ role, name });
+    }
+    else if (role == "teacher") {
+        entityQueues[1].push_back({ role, name });
+    }
+    else if (role == "student") {
+        entityQueues[2].push_back({ role, name });
+    }
+    else {
+        cout << "Invalid role entered." << endl;
+    }
+}
+
+writeToFile(entityQueues);
+
+cout << "Contents of people.txt:" << endl;
+displayFile();
+
+return 0;
