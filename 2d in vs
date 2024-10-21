@@ -1,0 +1,95 @@
+#include <iostream>
+#include <fstream>
+#include <deque>
+#include <string>
+
+using namespace std;
+
+struct Entity {
+    string role;
+    string name;
+};
+
+// Function to write entities to a file in the specified order
+void writeToFile(deque<Entity> parents, deque<Entity> teachers, deque<Entity> students) {
+    ofstream file("people.txt");
+    if (file.is_open()) {
+        // Write parents
+        while (!parents.empty()) {
+            file << parents.front().role << endl;
+            file << parents.front().name << endl;
+            parents.pop_front();
+        }
+        // Write teachers
+        while (!teachers.empty()) {
+            file << teachers.front().role << endl;
+            file << teachers.front().name << endl;
+            teachers.pop_front();
+        }
+        // Write students
+        while (!students.empty()) {
+            file << students.front().role << endl;
+            file << students.front().name << endl;
+            students.pop_front();
+        }
+        file.close();
+    }
+    else {
+        cout << "Unable to open file";
+    }
+}
+
+// Function to display the contents of the file
+void displayFile() {
+    ifstream file("people.txt");
+    if (file.is_open()) {
+        string line;
+        while (getline(file, line)) {
+            cout << line << endl;
+        }
+        file.close();
+    }
+    else {
+        cout << "Unable to open file";
+    }
+}
+
+int main() {
+    int count;
+    cout << "Enter the total number of entities: ";
+    cin >> count;
+
+    // Deques for each role
+    deque<Entity> parents;
+    deque<Entity> teachers;
+    deque<Entity> students;
+
+    for (int i = 0; i < count; i++) {
+        string role, name;
+        cout << "Enter entity " << i + 1 << " type (student, teacher, parent): ";
+        cin >> role;
+        cout << "Enter entity " << i + 1 << " name: ";
+        cin >> name;
+
+        // Push the entity into the respective deque based on role
+        if (role == "parent") {
+            parents.push_back({ role, name });
+        }
+        else if (role == "teacher") {
+            teachers.push_back({ role, name });
+        }
+        else if (role == "student") {
+            students.push_back({ role, name });
+        }
+        else {
+            cout << "Invalid role entered." << endl;
+        }
+    }
+
+    writeToFile(parents, teachers, students);
+
+    cout << "Contents of people.txt:" << endl;
+    displayFile();
+
+    return 0;
+}
